@@ -1,0 +1,4 @@
+div(ng-repeat="course in courses | orderBy: '-published' | limitTo: 10")
+    .row
+        .col-md-3(ng-bind="course.published | date: 'MMM d'")
+        .col-md-9(ng-bind="course.title")

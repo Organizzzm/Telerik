@@ -1,0 +1,13 @@
+.container
+    .jumbotron
+        h1 NeuroTraining
+        h2 Хороший тренинг по Angularjs и Nodejs
+    .row
+        .col-md-6
+            .panel.panel-info
+                .panel-heading.text-center Featured
+                .panel-body(ng-include="'partials/main/features-courses'")
+        .col-md-6
+            .panel.panel-info
+                .panel-heading.text-center New
+                .panel-body(ng-include="'partials/main/new-course'")

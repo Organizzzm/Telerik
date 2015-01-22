@@ -1,0 +1,27 @@
+{
+  "name": "TrainingGadget",
+  "version": "0.0.0",
+  "description": "0.0.1",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Zakharov Dmitry",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "express": "~4.10.7",
+    "jade": "~1.8.2",
+    "stylus": "~0.49.3",
+    "morgan": "~1.5.1",
+    "body-parser": "~1.10.1",
+    "mongoose": "~3.8.21",
+    "passport": "~0.2.1",
+    "cookie-parser": "~1.3.3",
+    "express-session": "~1.10.1",
+    "passport-local": "~1.0.0"
+  },
+  "engines": {
+    "node": "0.10.x",
+    "npm": "1.3.x"
+  }
+}
