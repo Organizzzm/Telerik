@@ -1,24 +1,28 @@
+var passport = require('passport'),
+    auth = require('./auth'),
+    mongoose = require('mongoose');
+
+var User = mongoose.model('User');
+
 module.exports = function(app){
+
+    app.get('/api/users', auth.isInRole('admin'), function(req, res){
+            User.find({}).exec(function(err, collection){
+                if(err){
+                    console.log('Users could not be loaded: ' + err);
+                }
+                res.send(collection);
+            });
+    });
+
     app.get('/partials/:partialArea/:partialPath', function(req, res){
         res.render('../../public/app/' + req.params.partialArea +'/'+ req.params.partialPath);
     });
 
-    app.post('/login', function(req, res, next){
-        var auth = passport.authenticate('local', function(err, user) {
-            if(err) return next(err);
-            if(!user){
-                res.send({success: false});
-            }
-            req.logIn(user, function(err){
-                if(err) return next(err);
-                res.send({success: true, user: user});
-            })
-        });
-
-        auth(req, res, next);
-    });
+    app.post('/login', auth.login);
+    app.post('/logout', auth.logout);
 
     app.get('*', function(req, res){
-        res.render('index'/*, {message: messageFromDB}*/);
+        res.render('index', {currentUser: req.user});
     });
 };

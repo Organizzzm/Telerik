@@ -4,7 +4,7 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
     passport = require('passport'),
-    expressSession = require('express-session');
+    session = require('express-session');
 
 module.exports = function(app, config){
     function compile(src, path){
@@ -18,7 +18,7 @@ module.exports = function(app, config){
     app.use(bodyParser.json());
     app.use(bodyParser.json());
     app.use(cookieParser());
-    //app.use(session({secret: 'keyboard cat'}));
+    app.use(session({secret: 'magic unicorns'}));
     app.use(stylus.middleware(
         {
             src: config.rootPath + '/public',
@@ -27,6 +27,8 @@ module.exports = function(app, config){
     ));
     app.use(passport.initialize());
     app.use(passport.session());
-
     app.use(express.static(config.rootPath + '/public'));
+    app.use(function(req, res, next){
+        next();
+    });
 }
