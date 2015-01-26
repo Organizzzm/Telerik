@@ -1,5 +1,33 @@
 App.factory('auth', function($q, identity, $http, UserResource){
     return{
+        signup: function(user){
+            var deferred = $q.defer();
+
+                var user = new UserResource(user);
+                user.$save().then(function(){
+                    identity.currentUser = user;
+                    deferred.resolve(true);
+                }, function(res){
+                    deferred.reject(res);
+                });
+
+            return deferred.promise;
+        },
+        update: function(user){
+            var deferred = $q.defer();
+
+            var updatedUser = new UserResource(user);
+            updatedUser._id = identity.currentUser._id;
+            updatedUser.$update().then(function(){
+                identity.currentUser.firstName = updatedUser.firstName;
+                identity.currentUser.lastName = updatedUser.lastName;
+                deferred.resolve(true);
+            }, function(success){
+                deferred.reject(success);
+            })
+
+            return deferred.promise;
+        },
         login: function(user){
             var deferred = $q.defer();
             $http.post('/login', user).success(function(res){
@@ -22,6 +50,13 @@ App.factory('auth', function($q, identity, $http, UserResource){
             });
 
             return deferred.promise;
+        },
+        isAuthenticated: function(){
+            if(identity.isAuthenticated()){
+                return true;
+            }else{
+                return $q.reject('not authorized');
+            }
         },
         isAuthorizedForRole: function(role) {
             if (identity.isAuthorizedForRole(role)) {

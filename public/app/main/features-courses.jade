@@ -1,2 +1,2 @@
 div(ng-repeat="course in courses | filter: {featured: true}")
-    li(ng-bind="course.title")
+    a(href="/courses/{{course._id}}", ng-bind="course.title")

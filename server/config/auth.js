@@ -1,6 +1,9 @@
 var passport = require('passport');
 
 module.exports = {
+    signup: function(req, res, next){
+        var userData = req.body;
+    },
     login: function(req, res, next){
         var auth = passport.authenticate('local', function(err, user) {
             if(err) return next(err);

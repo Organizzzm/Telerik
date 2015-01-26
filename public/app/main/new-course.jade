@@ -1,4 +1,5 @@
 div(ng-repeat="course in courses | orderBy: '-published' | limitTo: 10")
     .row
         .col-md-3(ng-bind="course.published | date: 'MMM d'")
-        .col-md-9(ng-bind="course.title")
+        .col-md-9
+            a(href="/courses/{{course._id}}", ng-bind="course.title")
